@@ -1,4 +1,6 @@
 #! /usr/bin/python3.9
+# Copyright (C) Romi https://github.com/Romi-go/
+
 import os
 import yaml
 
