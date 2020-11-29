@@ -1,0 +1,3 @@
+keyVault:
+  name: kv-name-uat
+  uri: "https://kv-name-uat.vault.azure.net/"

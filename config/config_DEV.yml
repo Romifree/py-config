@@ -1,0 +1,9 @@
+keyVault:
+  name: kv-name
+  uri: "https://kv-name.vault.azure.net/"
+
+test:
+  name: testname
+  value: testval
+  secLevel:
+    third: thirdtest
