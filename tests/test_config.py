@@ -1,19 +1,25 @@
 #! /usr/bin/python3.9
 # Copyright (C) Romi https://github.com/Romi-go/
 
-import os
-import sys
-sys.path.append(f"{os.path.dirname(os.path.realpath(__file__))}/../config")
+import _init
 import config
+import unittest
 
-print(config.get("keyVault.name"))
-print(config.get("keyVault.uri"))
-print(config.get("test.name"))
-print(config.get("test.secLevel"))
-print(config.get("test.secLevel.third"))
-print(config.get("non.exist", "default"))
-print(config.get("test.name", "not default"))
-try:
-    print(config.get("non-exist"))
-except KeyError:
-    pass
+class TestConfig(unittest.TestCase):
+    def test_get(self):
+        assert config.get("keyVault.name") == "kv-name", "shall be 'kv-name'"
+        self.assertEqual(config.get("keyVault.uri"), "https://kv-name.vault.azure.net/")
+        assert config.get("test.name") == "testname", "shall be 'testname'"
+        assert config.get("test.secLevel") == {"third": "thirdtest"}, "shall be '{\"third\": \"thirdtest\"}'"
+        assert config.get("test.secLevel.third") == "thirdtest", "shall be 'thirdtest'"
+
+    def test_get_default(self):
+        assert config.get("non.exist", "default") == "default", "shall be 'default'"
+        assert config.get("test.name", "not default") == "testname", "shall be 'testname'"
+
+    def test_key_err(self):
+        with self.assertRaises(KeyError):
+            config.get("non.exist")
+
+if __name__ == "__main__":
+    unittest.main()
